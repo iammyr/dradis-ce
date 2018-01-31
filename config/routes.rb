@@ -33,6 +33,15 @@ Rails.application.routes.draw do
     resources :revisions, only: [:index, :show]
   end
 
+  resources :commands do
+    collection do
+      post :import
+      delete :multiple_destroy
+      resources only: [:new, :create], controller: 'commands/merge'
+    end
+    resources :revisions, only: [:index, :show]
+  end
+
   resources :methodologies do
     collection { post :preview }
     member do

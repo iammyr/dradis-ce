@@ -1,0 +1,25 @@
+<% content_for :title, 'Commands summary' %>
+
+<!-- Main content -->
+<div id="command-viewer">
+
+  <div>
+    <!--The .blank? method returns true if the array is empty, and false if it contains any objects.
+    This @commands object was created in controller inside the list method.-->
+    <% if @commands.blank? %>
+        <p>There are not any commands currently in the system.</p>
+    <% else %>
+        <p>These are the current commands in our system</p>
+
+        <ul id = "commands">
+          <% @commands.each do |c| %>
+              <li><%= link_to c.line, {:action => 'show', :id => c.id} -%></li>
+          <% end %>
+        </ul>
+
+    <% end %>
+    <p><%= link_to "Add new Command", {:action => 'new' }%></p>
+
+  </div>
+</div>
+

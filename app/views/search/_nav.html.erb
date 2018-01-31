@@ -24,5 +24,10 @@
       <i class="fa fa-bug"></i> Issues (<%= search.issues_count %>)
     <% end %>
   </li>
+  <li class="<%= 'active' if @scope == :commands %>">
+    <%= link_to search_filter_path(scope: :commands), id: 'commands' do %>
+        <i class="fa fa-bug"></i> Commands (<%= search.commands_count %>)
+    <% end %>
+  </li>
 </ul>
 

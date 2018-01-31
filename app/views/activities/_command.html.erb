@@ -1,0 +1,13 @@
+<% if command %>
+  <% if command.title? %>
+    <%= presenter.verb %> the <%= link_to command.title, command %> command.
+  <% else %>
+    <%= presenter.verb %> <%= link_to "Command ##{command.id}", command %>.
+  <% end %>
+<% else %>
+  <% if activity.action == 'destroy' %>
+    deleted an command.
+  <% else %>
+    <%= presenter.verb %> an command which has since been deleted.
+  <% end %>
+<% end %>

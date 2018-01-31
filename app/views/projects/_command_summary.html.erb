@@ -1,0 +1,44 @@
+<section class="inner summary-panel">
+  <h2>Commands so far</h2>
+
+  <% if @commands.any? %>
+      <div id="command-chart"></div>
+
+      <% for tag in @tags do %>
+          <div class="command-group">
+            <h2 style="color: <%= tag.color %>"><%= tag.display_name %></h2>
+            <ul class="command-list drop-target" data-tag="<%= tag.name %>">
+              <% for command in @commands_by_tag[tag.name] %>
+                  <%= content_tag_for :li, command, data: {url: command_path(command, format: :json)} do %>
+                      <%= link_to command.title, command %>
+                  <% end %>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <%# unassigned %>
+      <div class="command-group">
+        <h2>Unassigned</h2>
+        <ul class="command-list drop-target">
+          <% for command in @commands_by_tag[:unassigned] %>
+              <%= content_tag_for :li, command, data: {url: command_path(command, format: :json)} do %>
+                  <%= link_to command.title, command %>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+
+  <% else %>
+      <p class="no-content">There are no commands in this project yet.</p>
+      <div>
+        <%= link_to commands_path(), class: 'btn btn-large btn-primary' do %>
+            <i class="fa fa-plus"></i> Add new command
+        <% end %> or <%= link_to upload_manager_path() do %><i class="fa fa-cloud-upload fa-lg"></i> Upload output from tool<% end %>
+      </div>
+  <% end %>
+</section>
+
+<% if @commands.any? %>
+    <div id='commands-summary-data' data-tags='<%= @tag_names.to_json %>' data-commands-count='<%= @count_by_tag.to_json %>'></div>
+<% end %>
